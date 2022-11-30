@@ -36,34 +36,32 @@ def insertion_sort(list_):
                 break
     return list_
 
-def merge(left_list, right_list):
+
+def merge(a, b):
     sorted_list = []
-    left_list_index = right_list_index = 0
-    left_list_length, right_list_length = len(left_list), len(right_list)
-    for _ in range(left_list_length + right_list_length):
-        if left_list_index < left_list_length and right_list_index < right_list_length:
-            if left_list[left_list_index] <= right_list[right_list_index]:
-                sorted_list.append(left_list[left_list_index])
-                left_list_index += 1
-            else:
-                sorted_list.append(right_list[right_list_index])
-                right_list_index += 1
-        elif left_list_index == left_list_length:
-            sorted_list.append(right_list[right_list_index])
-            right_list_index += 1
-        elif right_list_index == right_list_length:
-            sorted_list.append(left_list[left_list_index])
-            left_list_index += 1
+    i = j = 0
+    while i < (len(a)) and j < (len(b)):
+        if a[i] < b[j]:
+            sorted_list.append(a[i])
+            i += 1
+        else:
+            sorted_list.append(b[j])
+            j += 1
+    if i < len(a):
+        sorted_list += a[i:]
+    if j < len(b):
+        sorted_list += b[j:]
     return sorted_list
 
-def merge_sort(nums):
-    if len(nums) <= 1:
-        return nums
-    mid = len(nums) // 2
-    left_list = merge_sort(nums[:mid])
-    right_list = merge_sort(nums[mid:])
+def merge_sort(s):
+    if len(s) == 1:
+        return s
+    mid = len(s) // 2
+    left_list = merge_sort(s[:mid])
+    right_list = merge_sort(s[mid:])
     return merge(left_list, right_list)
 
 
-random_list_ = generate_list(100)
-print(merge_sort(random_list_))
+
+
+
