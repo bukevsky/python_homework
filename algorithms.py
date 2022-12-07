@@ -1,6 +1,6 @@
 import random
 
-RAND_MAX = 100
+RAND_MAX = 100000
 
 def generate_list(number_of_elements):
     list_ = [0] * number_of_elements
@@ -12,8 +12,8 @@ def generate_list(number_of_elements):
 def Bubble_Sort(list_):
     for run in range(len(list_)-1):
         for i in range(len(list_)-1-run):
-            if list_[i]>list_[i+1]:
-                list_[i],list_[i+1] = list_[i+1],list_[i]
+            if list_[i] > list_[i+1]:
+                list_[i], list_[i+1] = list_[i+1], list_[i]
     return list_
 
 
@@ -53,15 +53,36 @@ def merge(a, b):
         sorted_list += b[j:]
     return sorted_list
 
-def merge_sort(s):
-    if len(s) == 1:
-        return s
-    mid = len(s) // 2
-    left_list = merge_sort(s[:mid])
-    right_list = merge_sort(s[mid:])
+def merge_sort(list_):
+    if len(list_) == 1:
+        return list_
+    mid = len(list_) // 2
+    left_list = merge_sort(list_[:mid])
+    right_list = merge_sort(list_[mid:])
     return merge(left_list, right_list)
 
 
+def quick_sort(list_):
+    if len(list_) <= 1:
+        return list_
+    elem = list_[0]
+    left = list(filter(lambda x: x < elem, list_))
+    center = [i for i in list_ if i == elem]
+    right = list(filter(lambda x: x > elem, list_))
+    return quick_sort(left) + center + quick_sort(right)
 
 
-
+def insertion_binary(list_):
+    for i in range(len(list_)):
+        key = list_[i]
+        lo, hi = 0, i - 1
+        while lo < hi:
+            mid = lo + (hi - lo) // 2
+            if key < list_[mid]:
+                hi = mid
+            else:
+                lo = mid + 1
+        for j in range(i, lo + 1, -1):
+            list_[j] = list_[j - 1]
+        list_[lo] = key
+    return list_
