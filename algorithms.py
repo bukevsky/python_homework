@@ -66,9 +66,9 @@ def quick_sort(list_):
     if len(list_) <= 1:
         return list_
     elem = list_[0]
-    left = list(filter(lambda x: x < elem, list_))
+    left = [i for i in list_ if i < elem]
     center = [i for i in list_ if i == elem]
-    right = list(filter(lambda x: x > elem, list_))
+    right = [i for i in list_ if i > elem]
     return quick_sort(left) + center + quick_sort(right)
 
 
