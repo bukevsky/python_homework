@@ -37,41 +37,46 @@ class Talking:
 
     def __str__(self):
         if self.theme_now in self.themes:
-            return f"Тема сейчас: {self.theme_now}"
+            return f"Тема разговора: {self.theme_now}"
         else:
             return f"Нету темы для разговора"
 
 
+class Discussion(Talking):
+    def __init__(self):
+        self.people = []
+        super().__init__()
+
+    def add_people_talk(self, name):
+        self.people.append(name)
+        print("Добавил человека в разговор: " + name)
+
+    def remove_people_talk(self, name):
+        try:
+            self.people.remove(name)
+            print("Убрал человека из разговора: " + name)
+        except ValueError:
+            print("Такого человека в разговоре нету")
+
+    def __str__(self):
+        if len(self.people) >= 2:
+            return f"Сейчас в беседе учавствуют: {self.people}, Тема разговора: {self.theme_now}"
+        elif len(self.people) == 1:
+            return f"Сейчас {self.people[0]} один/одна, добавьте ему/ей собеседника в беседу!"
+        else:
+            return f"Сейчас в беседе никто не участвует"
+
 if __name__ == "__main__":
-    Talk1 = Talking()
-    # Talk1.add_talk_theme('School')
-    # Talk1.add_talk_theme('Дом')
-    # print(Talk1)
-    # Talk1.mix_themes()
-    # Talk1.mix_themes()
-    # print(Talk1)
-    # Talk1.take_theme()
-    # print(Talk1)
-    # Talk1.next_theme()
-    # Talk1.replace_theme()
-    # print(Talk1)
-    # print(Talk1)
-    # # Talk1.next_theme()
-    # # print(Talk1.themes)
-    # Talk1.replace_theme()
-    # print(Talk1.themes)
-    # print(Talk1)
-    # print(Talk1)
-    # print(Talk1.themes)
-    # Talk1.take_theme()
-    # print(Talk1)
-    # Talk1.mix_themes()
-    # Talk1.mix_themes()
-    # print(Talk1)
-    # Talk1.next_theme()
-    # print(Talk1)
-    # Talk1.take_theme()
-    # print(Talk1)
-
-
-    
+    parent = Discussion()
+    parent.add_talk_theme("Школа")
+    parent.add_talk_theme("Отношения")
+    print(parent)
+    parent.add_people_talk("Кирилл")
+    print(parent)
+    parent.add_people_talk("Дарья")
+    print(parent)
+    parent.take_theme()
+    print(parent.themes)
+    parent.next_theme()
+    parent.add_people_talk("Илья")
+    print(parent)
