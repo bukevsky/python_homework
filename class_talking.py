@@ -11,17 +11,20 @@ def count(func):
 
 
 class Talking:
-    @count
     def __init__(self):
         self.themes = ["Семья", "Дом", "ЕГЭ", "Прогулка"]
         self.theme_now = "Нету темы для разговора"
 
-    @count
     def add_talk_theme(self, additional_theme):
-        self.themes.append(additional_theme)
-        print("Добавил тему для разговора: " + additional_theme)
+        try:
+            if type(additional_theme) != str:
+                raise TypeError
+            else:
+                self.themes.append(additional_theme)
+                print("Добавил тему для разговора: " + additional_theme)
+        except TypeError:
+            print("Тут можно вводить только буквы!")
 
-    @count
     def take_theme(self):
         try:
             self.theme_now = self.themes[random.randint(0, len(self.themes) - 1)]
@@ -29,13 +32,11 @@ class Talking:
         except ValueError:
             print("Тем для разговора нету, добавьте темы.")
 
-    @count
     def mix_themes(self):
         random.shuffle(self.themes)
         print("Перемешал темы для разговора:")
         print(self.themes)
 
-    @count
     def next_theme(self):
         try:
             self.themes.remove(self.theme_now)
@@ -44,7 +45,6 @@ class Talking:
         except ValueError:
             print("Темы закончились!")
 
-    @count
     def replace_theme(self):
         try:
             self.theme_now = self.themes[random.randint(0, len(self.themes) - 1)]
@@ -52,7 +52,6 @@ class Talking:
         except ValueError:
             print("Чтобы заменить тему для разговора, её сначала нужно выбрать!")
 
-    @count
     def __str__(self):
         if self.theme_now in self.themes:
             return f"Тема разговора: {self.theme_now}"
@@ -61,17 +60,20 @@ class Talking:
 
 
 class Discussion(Talking):
-    @count
     def __init__(self):
         self.people = []
         super().__init__()
 
-    @count
     def add_people_talk(self, name):
-        self.people.append(name)
-        print("Добавил человека в разговор: " + name)
+        try:
+            if type(name) != str:
+                raise TypeError
+            else:
+                self.people.append(name)
+                print("Добавил человека в разговор: " + name)
+        except TypeError:
+            print("Тут можно вводить только буквы!")
 
-    @count
     def remove_people_talk(self, name):
         try:
             self.people.remove(name)
@@ -79,7 +81,6 @@ class Discussion(Talking):
         except ValueError:
             print("Такого человека в разговоре нету")
 
-    @count
     def __str__(self):
         if len(self.people) >= 2:
             return f"Сейчас в беседе учавствуют: {self.people}, Тема разговора: {self.theme_now}"
@@ -95,13 +96,11 @@ if __name__ == "__main__":
     print(talk1.themes)
     talk1.next_theme()
     talk1.next_theme()
-    talk1.next_theme()
-    talk1.next_theme()
-    talk1.next_theme()
     parent = Discussion()
     parent.take_theme()
-    parent.add_talk_theme("Школа")
+    parent.add_talk_theme(1)
     print(parent)
+    parent.add_people_talk(1)
     parent.add_people_talk("Кирилл")
     print(parent)
     parent.add_people_talk("Дарья")
