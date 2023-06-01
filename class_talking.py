@@ -107,6 +107,11 @@ class Discussion(Talking):
         else:
             return f"Сейчас в беседе никто не участвует"
 
+    def __copy__(self):
+        new_obj = Discussion()
+        new_obj.people = "А я не скажу кто в беседе!"
+        return new_obj
+
 if __name__ == "__main__":
     talk1 = Talking()
 
@@ -120,8 +125,9 @@ if __name__ == "__main__":
     print(f"\nTalk2:\n{talk2}\n")
     talk1.next_theme()
     talk1.next_theme()
-
-    # parent = Discussion()
+    parent = Discussion()
+    parent1 = copy.copy(parent)
+    print(parent1.people)
     # parent.take_theme()
     # parent.add_talk_theme(1)
     # print(parent)
