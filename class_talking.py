@@ -5,8 +5,11 @@ def count(func):
     counters = {}
     def wrapper(*args, **kwargs):
         counters[func] = counters.get(func, 0) + 1
-        print(f'Функция {func.__name__} вызвана {counters[func]} раз')
-        return func(*args, **kwargs)
+        result = func(*args, **kwargs)
+        with open("log.txt", "a") as file:
+            file.write(f'Функция {func.__name__} вызвана {counters[func]} раз\n')
+            file.write(f'Результат функции {func.__name__}: {result}\n')
+        return result
     return wrapper
 
 
@@ -127,14 +130,16 @@ if __name__ == "__main__":
     talk1.next_theme()
     parent = Discussion()
     parent1 = copy.copy(parent)
-    print(parent1.people)
+    parent.add_people_talk("Кирилл")
+    parent.add_people_talk("Дарья")
+    print(f"\nparent:\n{parent.people}")
+    print(f"\nparent1:\n{parent1.people}")
     # parent.take_theme()
     # parent.add_talk_theme(1)
     # print(parent)
     # parent.add_people_talk(1)
     # parent.add_people_talk("Кирилл")
     # print(parent)
-    # parent.add_people_talk("Дарья")
     # print(parent.themes)
     # print(parent)
     # parent.next_theme()
